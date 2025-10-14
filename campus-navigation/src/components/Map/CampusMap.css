@@ -1,0 +1,52 @@
+.map-page-container {
+    width: 100%;
+}
+
+.map-title {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.map-wrapper {
+    height: 70vh; /* This gives the container a height (70% of the screen's height) */
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden; 
+}
+
+/* --- THIS IS THE CRUCIAL FIX FOR THE MAP --- */
+/* It tells the Leaflet map to fill its container */
+.leaflet-map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Custom styles for the user's live location marker */
+.user-location-icon .user-dot {
+    background-color: #007bff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: 3px solid white;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
+    /* Animation for the user location marker */
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
+}
+

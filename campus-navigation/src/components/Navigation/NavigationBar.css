@@ -1,0 +1,102 @@
+/* --- Main Navbar Container --- */
+.navbar {
+    background-color: var(--dark-gray);
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+/* --- Logo Styling --- */
+.nav-logo {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Navigation Menu Items --- */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.nav-item {
+    display: flex; /* Changed to flex to align items vertically */
+    align-items: center;
+    height: 100%;
+}
+
+.nav-links {
+    color: #e0e0e0; /* A softer white for non-active links */
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease-out;
+    position: relative; /* Needed for the ::after pseudo-element */
+}
+
+/* --- Hover and Active States --- */
+.nav-links:hover {
+    color: var(--white);
+}
+
+/* This is the special class React Router adds to the active link */
+.nav-links.active {
+    color: var(--white);
+    font-weight: bold;
+}
+
+/* --- THE FIX: Using a pseudo-element for the underline --- */
+.nav-links.active::after {
+    content: '';
+    position: absolute;
+    bottom: 1rem; /* Adjust this value to position the line vertically */
+    left: 1rem;
+    right: 1rem;
+    height: 4px; /* Thickness of the line */
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+
+/* --- Responsive Design for Mobile --- */
+@media screen and (max-width: 960px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .nav-links {
+        padding: 0 0.75rem;
+    }
+    .nav-logo {
+        font-size: 1.5rem;
+    }
+    .nav-links.active::after {
+      bottom: 1.5rem;
+    }
+}
+

@@ -50,3 +50,119 @@
     }
 }
 
+/* --- (Add these new styles to the end of your existing file) --- */
+
+/* --- Navigation Info Panel --- */
+.navigation-panel {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Ensure it's on top of the map */
+    background: var(--white);
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.navigation-info {
+    flex-grow: 1;
+}
+
+.navigation-info p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.destination-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.distance-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.cancel-nav-button {
+    background: #e9ecef;
+    border: none;
+    color: #495057;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 40px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+.cancel-nav-button:hover {
+    background-color: #dee2e6;
+}
+/* --- (Add these new styles to the end of your existing file) --- */
+.navigation-panel{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:1000;background:var(--white);padding:10px 15px;border-radius:var(--border-radius);box-shadow:0 4px 12px rgba(0,0,0,0.2);display:flex;align-items:center;gap:15px;width:90%;max-width:400px}.navigation-info{flex-grow:1}.navigation-info p{margin:0;line-height:1.4}.destination-text{font-size:.9rem;color:#6c757d}.distance-text{font-size:1.2rem;font-weight:700;color:var(--primary-color)}.cancel-nav-button{background:#e9ecef;border:none;color:#495057;font-size:1.5rem;font-weight:700;width:40px;height:40px;border-radius:50%;cursor:pointer;line-height:40px;text-align:center;transition:background-color .2s}.cancel-nav-button:hover{background-color:#dee2e6}
+/* --- (Add these new styles to the end of your existing file) --- */
+
+/* --- Navigation Info Panel --- */
+.navigation-panel {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Ensure it's on top of the map */
+    background: var(--white);
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.navigation-info {
+    flex-grow: 1;
+}
+
+.navigation-info p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.destination-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.distance-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.cancel-nav-button {
+    background: #e9ecef;
+    border: none;
+    color: #495057;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 40px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+.cancel-nav-button:hover {
+    background-color: #dee2e6;
+}

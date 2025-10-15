@@ -11,7 +11,7 @@ import Directions from './components/Directions/Directions'; // <-- Import new c
 import DepartmentList from './components/Departments/DepartmentList';
 import DepartmentFaculty from './components/Departments/DepartmentFaculty';
 import FacultyDetail from './components/Departments/FacultyDetail';
-import Classrooms from './components/Classrooms/Classrooms';
+
 import CollegeDetails from './components/Details/CollegeDetails'; 
 const CampusMap = React.lazy(() => import('./components/Map/CampusMap'));
 
@@ -30,7 +30,7 @@ function App() {
               <Route path="/departments" element={<DepartmentList />} />
               <Route path="/departments/:id" element={<DepartmentFaculty />} />
               <Route path="/faculty/:id" element={<FacultyDetail />} />
-              <Route path="/classrooms" element={<Classrooms />} />
+
               <Route path="/details" element={<CollegeDetails />} /> 
             </Routes>
           </Suspense>

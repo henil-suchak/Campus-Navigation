@@ -85,3 +85,46 @@
 .directions-button:hover {
     background-color: var(--secondary-color);
 }
+
+/* --- (Add these new styles to the end of your existing file) --- */
+
+.suggestions-list li:first-child {
+    font-weight: bold;
+    color: var(--primary-color);
+    border-bottom: 1px solid #eee;
+}
+
+.error-message {
+    text-align: center;
+    color: #b91c1c;
+    background-color: #fee2e2;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+}
+
+.directions-button:disabled {
+    background: #a5b4fc;
+    cursor: not-allowed;
+}
+/* --- (Add these new styles to the end of your existing file) --- */
+
+.suggestions-list li:first-child {
+    font-weight: bold;
+    color: var(--primary-color);
+    border-bottom: 1px solid #eee;
+}
+
+.error-message {
+    text-align: center;
+    color: #b91c1c;
+    background-color: #fee2e2;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+}
+
+.directions-button:disabled {
+    background: #a5b4fc;
+    cursor: not-allowed;
+}

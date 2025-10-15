@@ -9,7 +9,7 @@ const departmentRoutes = require('./routes/departments');
 const facultyRoutes = require('./routes/faculty');
 const classroomRoutes = require('./routes/classrooms');
 const detailRoutes = require('./routes/details'); // <-- ADD THIS LINE
-
+const routingRoutes = require('./routes/routing'); 
 // Initialize Express App
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -37,7 +37,7 @@ app.use('/api/departments', departmentRoutes);
 app.use('/api/faculty', facultyRoutes);
 app.use('/api/classrooms', classroomRoutes);
 app.use('/api/details', detailRoutes); // <-- ADD THIS LINE
-
+app.use('/api/routing', routingRoutes);
 
 // --- Start Server ---
 app.listen(PORT, () => {

@@ -8,16 +8,19 @@ const Directions = () => {
     // State for user inputs and selections
     const [startQuery, setStartQuery] = useState('');
     const [endQuery, setEndQuery] = useState('');
-    const [startPoint, setStartPoint] = useState(null);
+    const [startPoint, setStartPoint] = useState(null); // Can be a building object or the string 'current_location'
     const [endPoint, setEndPoint] = useState(null);
     
-    // State for live search suggestions
+    // State for live search suggestions and loading/error messages
     const [startSuggestions, setStartSuggestions] = useState([]);
     const [endSuggestions, setEndSuggestions] = useState([]);
+    const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    // Debounce timer for API calls
+    // --- API Search Logic (with debouncing) ---
     useEffect(() => {
-        if (startQuery.length < 2) {
+        // Don't search if the input is what we set for current location
+        if (startQuery.length < 2 || startPoint === 'current_location') {
             setStartSuggestions([]);
             return;
         }
@@ -42,7 +45,30 @@ const Directions = () => {
         return () => clearTimeout(timer);
     }, [endQuery]);
 
-    // Handle selecting a suggestion
+    // --- Geolocation Logic for "Your Current Location" ---
+    const handleSelectCurrentLocation = () => {
+        setIsLoadingLocation(true);
+        setStartPoint('current_location');
+        setStartQuery('Your Current Location');
+        setStartSuggestions([]);
+        setErrorMessage('Fetching your location...');
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                setIsLoadingLocation(false);
+                setErrorMessage(''); // Clear message on success
+            },
+            (error) => {
+                console.error("Geolocation error:", error);
+                setErrorMessage('Could not get your location. Please check permissions and try again.');
+                setIsLoadingLocation(false);
+                setStartPoint(null); // Reset if it fails
+                setStartQuery('');
+            },
+            { enableHighAccuracy: true, timeout: 10000 }
+        );
+    };
+
     const handleSelectStart = (building) => {
         setStartPoint(building);
         setStartQuery(building.name);
@@ -54,20 +80,35 @@ const Directions = () => {
         setEndSuggestions([]);
     };
 
-    // Handle "Get Directions" button click
+    // --- Navigation Logic ---
     const handleGetDirections = () => {
+        setErrorMessage('');
         if (!startPoint || !endPoint) {
-            alert("Please select a valid start and end point.");
+            setErrorMessage("Please select a valid start and end point.");
             return;
         }
-        navigate('/map', {
-            state: {
-                start: startPoint.location.coordinates,
-                startName: startPoint.name,
-                destination: endPoint.location.coordinates,
-                destinationName: endPoint.name
-            }
-        });
+
+        // If starting from current location, we only pass the destination.
+        // The map component will automatically use the user's live position as the start.
+        if (startPoint === 'current_location') {
+            navigate('/map', {
+                state: {
+                    destination: endPoint.location.coordinates,
+                    destinationName: endPoint.name
+                }
+            });
+        } 
+        // If starting from a building, pass both start and destination.
+        else {
+            navigate('/map', {
+                state: {
+                    start: startPoint.location.coordinates,
+                    startName: startPoint.name,
+                    destination: endPoint.location.coordinates,
+                    destinationName: endPoint.name
+                }
+            });
+        }
     };
 
     return (
@@ -77,18 +118,16 @@ const Directions = () => {
                 <div className="input-group">
                     <label htmlFor="start">Start Location</label>
                     <input
-                        id="start"
-                        type="text"
-                        placeholder="Type to search buildings..."
+                        id="start" type="text" placeholder="Search buildings or select current location..."
                         value={startQuery}
-                        onChange={(e) => {
-                            setStartQuery(e.target.value);
-                            setStartPoint(null); // Clear selection if user types again
-                        }}
+                        onChange={(e) => { setStartQuery(e.target.value); setStartPoint(null); }}
                         autoComplete="off"
                     />
-                    {startSuggestions.length > 0 && (
+                    {/* Show suggestions only when typing */}
+                    {startQuery.length > 1 && startPoint !== 'current_location' && (
                         <ul className="suggestions-list">
+                            {/* The special "Current Location" option always appears first */}
+                            <li onClick={handleSelectCurrentLocation}>📍 Your Current Location</li>
                             {startSuggestions.map(b => (
                                 <li key={b._id} onClick={() => handleSelectStart(b)}>{b.name}</li>
                             ))}
@@ -99,14 +138,9 @@ const Directions = () => {
                 <div className="input-group">
                     <label htmlFor="end">Destination</label>
                     <input
-                        id="end"
-                        type="text"
-                        placeholder="Type to search buildings..."
+                        id="end" type="text" placeholder="Type to search buildings..."
                         value={endQuery}
-                        onChange={(e) => {
-                            setEndQuery(e.target.value);
-                            setEndPoint(null);
-                        }}
+                        onChange={(e) => { setEndQuery(e.target.value); setEndPoint(null); }}
                         autoComplete="off"
                     />
                     {endSuggestions.length > 0 && (
@@ -117,9 +151,11 @@ const Directions = () => {
                         </ul>
                     )}
                 </div>
+                
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-                <button onClick={handleGetDirections} className="directions-button">
-                    Get Directions
+                <button onClick={handleGetDirections} className="directions-button" disabled={isLoadingLocation}>
+                    {isLoadingLocation ? 'Getting Location...' : 'Get Directions'}
                 </button>
             </div>
         </div>
